@@ -1,5 +1,5 @@
 lines = []
-with open("input.txt") as input_file:
+with open("d2.txt") as input_file:
     for line in input_file:
         lines.append(line)
 

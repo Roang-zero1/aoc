@@ -67,7 +67,7 @@ def range_overlap(a_min, a_max, b_min, b_max):
 
 compiled_re = re.compile('#(?P<id>[0-9]+) @ (?P<left>[0-9]+),(?P<top>[0-9]+): (?P<width>[0-9]+)x(?P<height>[0-9]+)')
 rectangles = []
-with open("input.txt") as input_file:
+with open("d3.txt") as input_file:
     for line in input_file:
         match = compiled_re.match(line.rstrip('\n'))
         rectangles.append(Rectangle(

@@ -1,6 +1,6 @@
 floor = 0
 basement = False
-with open("input.txt") as input_file:
+with open("d1.txt") as input_file:
     for line in input_file:
         for i, char in enumerate(line):
             if char == '(':

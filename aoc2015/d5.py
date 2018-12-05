@@ -2,7 +2,7 @@ vowels = ['a','e','i','o','u']
 naughty = ['ab', 'cd', 'pq', 'xy']
 
 nice = 0
-with open('input.txt') as input_file:
+with open('d5.txt') as input_file:
     for line in input_file.readlines():
         contains_naughty = any(x in line for x in naughty)
         double = False

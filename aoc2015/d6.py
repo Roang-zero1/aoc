@@ -4,7 +4,7 @@ import re
 regex = re.compile(r'(?P<action>turn on|turn off|toggle) (?P<tlx>[0-9]+),(?P<tly>[0-9]+) through (?P<brx>[0-9]+),(?P<bry>[0-9]+)')
 lights = defaultdict(bool)
 lights_2 = defaultdict(int)
-with open('input.txt') as input_file:
+with open('d6.txt') as input_file:
     for num, line in enumerate(input_file.readlines()):
         print(f'Processing line number {num}')
         match = regex.match(line)

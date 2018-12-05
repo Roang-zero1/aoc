@@ -2,7 +2,7 @@ from collections import defaultdict
 #1373 @ 130,274: 15x26
 C = defaultdict(int)
 sum = 0
-for line in open('input.txt'):
+for line in open('d3.txt'):
     words = line.split()
     x,y = words[2].split(',')
     x,y = int(x), int(y[:-1])
@@ -13,7 +13,7 @@ for line in open('input.txt'):
         for dy in range(h):
             C[(x+dx, y+dy)] += 1
 print(sum)
-for line in open('input.txt'):
+for line in open('d3.txt'):
     words = line.split()
     x,y = words[2].split(',')
     x,y = int(x), int(y[:-1])

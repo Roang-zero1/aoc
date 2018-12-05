@@ -2,7 +2,7 @@ import pprint
 
 from collections import defaultdict
 entries = defaultdict(lambda: defaultdict(str))
-with open('input.txt') as input_file:
+with open('d4.txt') as input_file:
     for line in input_file.readlines():
         words = line.split()
         date = words[0].lstrip('[')

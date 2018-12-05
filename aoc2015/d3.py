@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-with open("input.txt") as input_file:
+with open("d3.txt") as input_file:
     input_data = input_file.readline()
 
 houses_1 = defaultdict(int)

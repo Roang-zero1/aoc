@@ -1,6 +1,6 @@
   
 changes = []
-with open("input.txt") as input_file:
+with open("d1.txt") as input_file:
     for line in input_file.readlines():
         changes.append(int(line))
 print(sum(changes))
