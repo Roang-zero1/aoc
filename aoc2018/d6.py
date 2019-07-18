@@ -152,31 +152,13 @@ def manhattan_distancer(
 
 
 def expand(
-    grid: GRID_TYPE, points: Dict[str, Point], distance: int, points_in_progress: set
+    grid: GRID_TYPE, points: Dict[int, Point], distance: int, points_in_progress: set
 ) -> None:
     for point in [v for v in points.values() if not v.finished]:
         for direction in DIRECTIONS:
             manhattan_distancer(grid, point, direction, distance, points_in_progress)
 
-
-def main():
-    global MAX_SIZE
-
-    with open("d6.txt", "r") as input_data:
-        lines = input_data.readlines()
-        points = {}
-        ident = 1
-        for line in lines:
-            line = line.rstrip("\n")
-            point_data = line.split(", ")
-            point = Point(ident, int(point_data[0]), int(point_data[1]), False, False)
-            points[ident] = point
-            ident = ident + 1
-            if point.y > MAX_SIZE:
-                MAX_SIZE = point.y + 1
-            if point.x > MAX_SIZE:
-                MAX_SIZE = point.x + 1
-
+def part1(points: Dict[int, Point]):
     grid = [
         [GridPoint(defaultdict(set)) for x in range(MAX_SIZE + 1)]
         for y in range(MAX_SIZE + 1)
@@ -229,6 +211,30 @@ def main():
     # print_grid(grid)
 
     print(f"Solution is: {max(counts.values())}")
+
+def part2(points: Dict[int, Point]):
+    pass
+
+def main():
+    global MAX_SIZE
+
+    points = {}
+    with open("d6.txt", "r") as input_data:
+        lines = input_data.readlines()
+        ident = 1
+        for line in lines:
+            line = line.rstrip("\n")
+            point_data = line.split(", ")
+            point = Point(ident, int(point_data[0]), int(point_data[1]), False, False)
+            points[ident] = point
+            ident = ident + 1
+            if point.y > MAX_SIZE:
+                MAX_SIZE = point.y + 1
+            if point.x > MAX_SIZE:
+                MAX_SIZE = point.x + 1
+
+    #part1(points)
+    part2(points)
 
 
 if __name__ == "__main__":
