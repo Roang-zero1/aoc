@@ -13,6 +13,7 @@ class Direction(Enum):
 
 MIN_SIZE = 0
 MAX_SIZE = 0
+MAX_SAFE_DISTANCE = 10000
 
 DIRECTIONS = [Direction.UP, Direction.RIGHT, Direction.DOWN, Direction.LEFT]
 
@@ -32,6 +33,7 @@ class Point:
 @dataclass
 class GridPoint:
     distances: dict
+    safe_distance: bool = False
     origin: Union[None, Point] = None
 
 
@@ -48,6 +50,8 @@ def print_grid(grid: GRID_TYPE):
         for line in row:
             if line.origin:
                 print(f">{line.origin.ident:02d}<", end="")
+            elif line.safe_distance:
+                print(" ## ", end="")
             elif line.distances:
                 max_distance = max(line.distances)
                 if len(line.distances[max_distance]) > 1:
@@ -165,9 +169,7 @@ def part1(points: Dict[int, Point]):
     ]
 
     for point in points.values():
-        grid_point = grid[point.y][point.x]
-        grid_point.origin = point
-        grid[point.y][point.x] = grid_point
+        grid[point.y][point.x].origin = point
 
     for distance in range(1, MAX_SIZE):
         points_in_progress = set()
@@ -213,7 +215,34 @@ def part1(points: Dict[int, Point]):
     print(f"Solution is: {max(counts.values())}")
 
 def part2(points: Dict[int, Point]):
-    pass
+    grid = [
+        [GridPoint(defaultdict(set)) for x in range(MAX_SIZE + 1)]
+        for y in range(MAX_SIZE + 1)
+    ]
+
+    for point in points.values():
+        grid[point.y][point.x].origin = point
+
+    for y in range(MIN_SIZE, MAX_SIZE):
+        for x in range(MIN_SIZE, MAX_SIZE):
+            total_distance = 0
+            for point in points.values():
+                total_distance += abs(point.y - y) + abs(point.x -x)
+            if total_distance < MAX_SAFE_DISTANCE:
+                grid_point =  grid[y][x]
+                grid_point.safe_distance = True
+                grid[y][x] = grid_point
+
+    region_size = 0
+    for y in range(MIN_SIZE, MAX_SIZE):
+        for x in range(MIN_SIZE, MAX_SIZE):
+            if grid[y][x].safe_distance == True:
+                region_size += 1
+
+    #print_grid(grid)
+
+    print(region_size)
+
 
 def main():
     global MAX_SIZE
