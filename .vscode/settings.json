@@ -1,6 +1,6 @@
 {
     "spellright.language": [
-        "en"
+        "en_US"
     ],
     "spellright.documentTypes": [
         "markdown",
@@ -8,6 +8,8 @@
         "git-commit",
         "python"
     ],
-    "python.pythonPath": ".env/bin/python3",
-    "python.formatting.provider": "black"
+    "python.pythonPath": "/home/lucas/.cache/pypoetry/virtualenvs/aoc-OqPnzczh-py3.7/bin/python",
+    "python.formatting.provider": "black",
+    "editor.formatOnSave": true,
+    "python.linting.mypyEnabled": true
 }
