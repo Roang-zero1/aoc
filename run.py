@@ -8,6 +8,7 @@ from typing import List
 from tabulate import tabulate
 
 from aoc.classes import ResultReturn
+import logging
 
 
 def main(args: Namespace):
@@ -43,5 +44,10 @@ if __name__ == "__main__":
     parser.add_argument(
         "day", metavar="D", type=int, help="The day to search for the solution for"
     )
+    parser.add_argument(
+        "-v", "--verbose", help="increase output verbosity", action="store_true"
+    )
     args = parser.parse_args()
+    level = logging.DEBUG if args.verbose else logging.INFO
+    logging.basicConfig(level=level)
     main(args)
