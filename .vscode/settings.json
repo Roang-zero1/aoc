@@ -11,5 +11,9 @@
     "python.pythonPath": "/home/lucas/.cache/pypoetry/virtualenvs/aoc-OqPnzczh-py3.7/bin/python",
     "python.formatting.provider": "black",
     "editor.formatOnSave": true,
-    "python.linting.mypyEnabled": true
+    "python.linting.mypyEnabled": true,
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/.mypy_cache": true
+    }
 }
