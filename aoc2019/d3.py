@@ -1,9 +1,7 @@
 #!python
+from typing import Dict, List, Set, Tuple
 
-from aoc2019.processor import Processor
-from pathlib import Path
-from typing import List, Tuple, Set, Dict
-from dataclasses import dataclass
+from aoc.classes import Result, ResultReturn
 
 DIRECTION_MAP = {"U": (0, 1), "D": (0, -1), "R": (1, 0), "L": (-1, 0)}
 
@@ -62,18 +60,19 @@ class WireTracer:
         return min(timings)
 
 
-def main():
-    script_path = Path.resolve(Path(__file__))
+def main(puzzle_input: List[str]) -> ResultReturn:
     wires = []
-    with open(Path(script_path.parent, f"{script_path.stem}.txt"), "r") as input_data:
-        for line in input_data.readlines():
-            line = line.rstrip("\n")
-            values = line.split(",")
-            wires.append(values)
+    for line in puzzle_input:
+        values = line.split(",")
+        wires.append(values)
     tracer = WireTracer(wires[0], wires[1])
-    print(f"Wire distance is {tracer.find_distance()}")
-    print(f"Best timing is {tracer.find_timing()}")
+    return ResultReturn(
+        (
+            Result(tracer.find_distance(), "Wire distance"),
+            Result(tracer.find_timing(), "Best timing"),
+        )
+    )
 
 
 if __name__ == "__main__":
-    main()
+    raise Exception("Please use the run script")

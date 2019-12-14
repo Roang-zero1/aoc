@@ -1,6 +1,7 @@
 #!python
-from pathlib import Path
-from typing import Tuple, List
+from typing import List, Tuple
+
+from aoc.classes import Result, ResultReturn
 
 
 def calculate_fuel(mass: int) -> Tuple[int, int]:
@@ -23,20 +24,17 @@ def calculate_total_fuel(masses: List[int]) -> Tuple[int, int]:
     return (sum, sum_with_fuel)
 
 
-def main():
-    script_path = Path.resolve(Path(__file__))
+def main(puzzle_input: List[str]) -> ResultReturn:
     masses = []
-    with open(Path(script_path.parent, f"{script_path.stem}.txt"), "r") as input_data:
-        lines = input_data.readlines()
-        for line in lines:
-            line = line.rstrip("\n")
-            masses.append(int(line))
+    for line in puzzle_input:
+        masses.append(int(line))
 
     sum, sum_with_fuel = calculate_total_fuel(masses)
 
-    print(f"Required fuel sum is : {sum}")
-    print(f"Required fuel sum,  with fuel for fuel, is : {sum_with_fuel}")
+    return ResultReturn(
+        (Result(sum, "Required fuel"), Result(sum_with_fuel, "Required fuel with fuel"))
+    )
 
 
 if __name__ == "__main__":
-    main()
+    raise Exception("Please use the run script")
