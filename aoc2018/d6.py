@@ -1,7 +1,9 @@
-from collections import defaultdict, Counter
+from collections import Counter, defaultdict
 from dataclasses import dataclass
-from typing import List, Dict, Union
 from enum import Enum
+from typing import Dict, List, Union
+
+from aoc.classes import Result, ResultReturn
 
 
 class Direction(Enum):
@@ -162,6 +164,7 @@ def expand(
         for direction in DIRECTIONS:
             manhattan_distancer(grid, point, direction, distance, points_in_progress)
 
+
 def part1(points: Dict[int, Point]):
     grid = [
         [GridPoint(defaultdict(set)) for x in range(MAX_SIZE + 1)]
@@ -212,7 +215,8 @@ def part1(points: Dict[int, Point]):
 
     # print_grid(grid)
 
-    print(f"Solution is: {max(counts.values())}")
+    return Result(max(counts.values()), "Largest region")
+
 
 def part2(points: Dict[int, Point]):
     grid = [
@@ -227,9 +231,9 @@ def part2(points: Dict[int, Point]):
         for x in range(MIN_SIZE, MAX_SIZE):
             total_distance = 0
             for point in points.values():
-                total_distance += abs(point.y - y) + abs(point.x -x)
+                total_distance += abs(point.y - y) + abs(point.x - x)
             if total_distance < MAX_SAFE_DISTANCE:
-                grid_point =  grid[y][x]
+                grid_point = grid[y][x]
                 grid_point.safe_distance = True
                 grid[y][x] = grid_point
 
@@ -239,32 +243,31 @@ def part2(points: Dict[int, Point]):
             if grid[y][x].safe_distance == True:
                 region_size += 1
 
-    #print_grid(grid)
+    # print_grid(grid)
 
-    print(region_size)
+    return Result(region_size, "Safest region")
 
 
-def main():
+def main(puzzle_input: List[str]):
     global MAX_SIZE
 
     points = {}
-    with open("d6.txt", "r") as input_data:
-        lines = input_data.readlines()
-        ident = 1
-        for line in lines:
-            line = line.rstrip("\n")
-            point_data = line.split(", ")
-            point = Point(ident, int(point_data[0]), int(point_data[1]), False, False)
-            points[ident] = point
-            ident = ident + 1
-            if point.y > MAX_SIZE:
-                MAX_SIZE = point.y + 1
-            if point.x > MAX_SIZE:
-                MAX_SIZE = point.x + 1
+    ident = 1
+    for line in puzzle_input:
+        point_data = line.split(", ")
+        point = Point(ident, int(point_data[0]), int(point_data[1]), False, False)
+        points[ident] = point
+        ident = ident + 1
+        if point.y > MAX_SIZE:
+            MAX_SIZE = point.y + 1
+        if point.x > MAX_SIZE:
+            MAX_SIZE = point.x + 1
 
-    #part1(points)
-    part2(points)
+    result_1 = part1(points)
+    result_2 = part2(points)
+
+    return ResultReturn((result_1, result_2))
 
 
 if __name__ == "__main__":
-    main()
+    raise Exception("Please use the run script")
