@@ -1,6 +1,6 @@
 from typing import List
 
-from aoc.classes import Result, ResultReturn
+from aoc.classes import AoCResult, AoCReturn
 
 
 def main(puzzle_input: List[str]):
@@ -13,10 +13,10 @@ def main(puzzle_input: List[str]):
             elif char == ")":
                 floor -= 1
             if floor == -1 and not basement:
-                result_2 = Result(i + 1, "Basement entered")
+                result_2 = AoCResult(i + 1, "Basement entered")
                 basement = True
-    result_1 = Result(floor, "Final floor")
-    return ResultReturn((result_1, result_2))
+    result_1 = AoCResult(floor, "Final floor")
+    return AoCReturn((result_1, result_2))
 
 
 if __name__ == "__main__":

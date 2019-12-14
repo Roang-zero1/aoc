@@ -2,7 +2,7 @@ import logging
 from collections import defaultdict
 from typing import List
 
-from aoc.classes import Result, ResultReturn
+from aoc.classes import AoCResult, AoCReturn
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +26,7 @@ def collapse(input_data):
 def main(puzzle_input: List[str]):
     output = collapse(puzzle_input[0])
 
-    result_1 = Result(len(output), "Length after first collapse")
+    result_1 = AoCResult(len(output), "Length after first collapse")
 
     hinderance = defaultdict(int)
     for i in range(len(output) - 2):
@@ -49,7 +49,7 @@ def main(puzzle_input: List[str]):
             best = len(output)
             logger.debug("New best %s after removing %s", best, c)
 
-    return ResultReturn((result_1, Result(best, "Length after second collapse")))
+    return AoCReturn((result_1, AoCResult(best, "Length after second collapse")))
 
 
 if __name__ == "__main__":

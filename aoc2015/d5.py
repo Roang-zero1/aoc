@@ -1,4 +1,4 @@
-from aoc.classes import Result, ResultReturn
+from aoc.classes import AoCResult, AoCReturn
 from typing import List
 
 
@@ -26,7 +26,7 @@ def main(puzzle_input: List[str]):
         if v_count >= 3 and not contains_naughty and double:
             nice += 1
 
-    result_1 = Result(nice, "Sum of nice strings")
+    result_1 = AoCResult(nice, "Sum of nice strings")
 
     nice = 0
     for line in puzzle_input:
@@ -40,8 +40,8 @@ def main(puzzle_input: List[str]):
         if double and double_pairs:
             nice += 1
 
-    result_2 = Result(nice, "Sum of nice strings")
-    return ResultReturn((result_1, result_2))
+    result_2 = AoCResult(nice, "Sum of nice strings")
+    return AoCReturn((result_1, result_2))
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-from aoc.classes import Result, ResultReturn
+from aoc.classes import AoCResult, AoCReturn
 from collections import defaultdict
 from typing import List
 
@@ -30,10 +30,10 @@ def main(puzzle_input: List[str]):
         houses_1[(pos["c1"]["x"], pos["c1"]["y"])] += 1
         houses_2[(pos[mover]["x"], pos[mover]["y"])] += 1
 
-    return ResultReturn(
+    return AoCReturn(
         (
-            Result(len(houses_1), "Number of houses"),
-            Result(len(houses_2), "Robot delivery"),
+            AoCResult(len(houses_1), "Number of houses"),
+            AoCResult(len(houses_2), "Robot delivery"),
         )
     )
 

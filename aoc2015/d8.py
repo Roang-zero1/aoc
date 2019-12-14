@@ -1,6 +1,6 @@
 from typing import List
 
-from aoc.classes import Result, ResultReturn
+from aoc.classes import AoCResult, AoCReturn
 
 
 def main(puzzle_input: List[str]):
@@ -19,10 +19,10 @@ def main(puzzle_input: List[str]):
         line = line.replace('\\"', '"')
         sum_double_encoded += len(line) + 2
 
-    return ResultReturn(
+    return AoCReturn(
         (
-            Result(sum_escaped - sum_decoded, "Difference escaped/decoded"),
-            Result(
+            AoCResult(sum_escaped - sum_decoded, "Difference escaped/decoded"),
+            AoCResult(
                 sum_double_encoded - sum_escaped, "Difference escaped/double escaped"
             ),
         )

@@ -1,7 +1,7 @@
 #!python
 from typing import List, Tuple
 
-from aoc.classes import Result, ResultReturn
+from aoc.classes import AoCResult, AoCReturn
 
 
 def calculate_fuel(mass: int) -> Tuple[int, int]:
@@ -24,15 +24,15 @@ def calculate_total_fuel(masses: List[int]) -> Tuple[int, int]:
     return (sum, sum_with_fuel)
 
 
-def main(puzzle_input: List[str]) -> ResultReturn:
+def main(puzzle_input: List[str]) -> AoCReturn:
     masses = []
     for line in puzzle_input:
         masses.append(int(line))
 
     sum, sum_with_fuel = calculate_total_fuel(masses)
 
-    return ResultReturn(
-        (Result(sum, "Required fuel"), Result(sum_with_fuel, "Required fuel with fuel"))
+    return AoCReturn(
+        (AoCResult(sum, "Required fuel"), AoCResult(sum_with_fuel, "Required fuel with fuel"))
     )
 
 

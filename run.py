@@ -7,7 +7,7 @@ from typing import List
 
 from tabulate import tabulate
 
-from aoc.classes import ResultReturn
+from aoc.classes import AoCReturn
 import logging
 
 
@@ -22,7 +22,7 @@ def main(args: Namespace):
         for line in input_data.readlines():
             line = line.rstrip("\n")
             lines.append(line)
-    result: ResultReturn = i.main(lines)  # type: ignore
+    result: AoCReturn = i.main(lines)  # type: ignore
     print(f"~~~ Advent of Code ~ {args.year} day {args.day}")
     print(
         tabulate(

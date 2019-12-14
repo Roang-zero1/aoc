@@ -3,7 +3,7 @@ from collections import defaultdict
 from typing import List
 
 import logging
-from aoc.classes import Result, ResultReturn
+from aoc.classes import AoCResult, AoCReturn
 
 logger = logging.getLogger(__name__)
 
@@ -38,10 +38,10 @@ def main(puzzle_input: List[str]):
                     lights_2[(x, y)] += 1 if value else -1
                     lights_2[(x, y)] = lights_2[(x, y)] if lights_2[(x, y)] > 0 else 0
 
-    return ResultReturn(
+    return AoCReturn(
         (
-            Result(sum([x for x in lights.values() if x == True]), "Lights on "),
-            Result(sum([x for x in lights_2.values()]), "Total Brightness"),
+            AoCResult(sum([x for x in lights.values() if x == True]), "Lights on "),
+            AoCResult(sum([x for x in lights_2.values()]), "Total Brightness"),
         )
     )
 

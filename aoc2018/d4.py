@@ -2,7 +2,7 @@ import logging
 from collections import defaultdict
 from typing import DefaultDict, Dict, List
 
-from aoc.classes import Result, ResultReturn
+from aoc.classes import AoCResult, AoCReturn
 
 logger = logging.getLogger(__name__)
 
@@ -90,10 +90,10 @@ def main(puzzle_input: List[str]):
         guard_times[worst_guard_2]["minutes"][worst_minute_2],
         worst_minute_2,
     )
-    return ResultReturn(
+    return AoCReturn(
         (
-            Result(worst_guard * worst_minute, "Worst guard for sleeping"),
-            Result(worst_guard_2 * worst_minute_2, "Worst gurard in most minutes"),
+            AoCResult(worst_guard * worst_minute, "Worst guard for sleeping"),
+            AoCResult(worst_guard_2 * worst_minute_2, "Worst gurard in most minutes"),
         )
     )
 

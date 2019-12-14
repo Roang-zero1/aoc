@@ -3,7 +3,7 @@
 from typing import List
 
 from aoc2019.processor import Processor
-from aoc.classes import Result, ResultReturn
+from aoc.classes import AoCResult, AoCReturn
 
 
 def find_output(processor: Processor, value: int) -> int:
@@ -14,15 +14,15 @@ def find_output(processor: Processor, value: int) -> int:
     return -1
 
 
-def main(puzzle_input: List[str]) -> ResultReturn:
+def main(puzzle_input: List[str]) -> AoCReturn:
     code = list(map(int, puzzle_input[0].split(",")))
     processor = Processor(code)
     processor.prime(12, 2)
-    result_1 = Result(processor.run()[0], "Result code (12, 2)")
+    result_1 = AoCResult(processor.run()[0], "Result code (12, 2)")
     value = 19690720
     result = find_output(processor, value)
     if result > 0:
-        return ResultReturn((result_1, Result(result, f"Result for {value}")))
+        return AoCReturn((result_1, AoCResult(result, f"Result for {value}")))
     else:
         raise Exception("Wrong value of code")
 

@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Dict, List, Union
 
-from aoc.classes import Result, ResultReturn
+from aoc.classes import AoCResult, AoCReturn
 
 
 class Direction(Enum):
@@ -215,7 +215,7 @@ def part1(points: Dict[int, Point]):
 
     # print_grid(grid)
 
-    return Result(max(counts.values()), "Largest region")
+    return AoCResult(max(counts.values()), "Largest region")
 
 
 def part2(points: Dict[int, Point]):
@@ -245,7 +245,7 @@ def part2(points: Dict[int, Point]):
 
     # print_grid(grid)
 
-    return Result(region_size, "Safest region")
+    return AoCResult(region_size, "Safest region")
 
 
 def main(puzzle_input: List[str]):
@@ -266,7 +266,7 @@ def main(puzzle_input: List[str]):
     result_1 = part1(points)
     result_2 = part2(points)
 
-    return ResultReturn((result_1, result_2))
+    return AoCReturn((result_1, result_2))
 
 
 if __name__ == "__main__":

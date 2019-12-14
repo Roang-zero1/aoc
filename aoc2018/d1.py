@@ -2,16 +2,16 @@
 import logging
 from typing import List, Set, Tuple
 
-from aoc.classes import Result, ResultReturn
+from aoc.classes import AoCResult, AoCReturn
 
 LOGGER = logging.getLogger(__name__)
 
 
-def main(puzzle_input: List[str]) -> ResultReturn:
+def main(puzzle_input: List[str]) -> AoCReturn:
     changes = []
     for line in puzzle_input:
         changes.append(int(line))
-    result_1 = Result(sum(changes), "Final position")
+    result_1 = AoCResult(sum(changes), "Final position")
     loop_cnt = 0
     position = 0
     positions: Set[int] = set()
@@ -32,7 +32,7 @@ def main(puzzle_input: List[str]) -> ResultReturn:
             len(positions),
             position,
         )
-    return ResultReturn((result_1, Result(position, "Final position")))
+    return AoCReturn((result_1, AoCResult(position, "Final position")))
 
 
 if __name__ == "__main__":

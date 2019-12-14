@@ -5,7 +5,7 @@ from typing import List
 
 from numpy import uint16
 
-from aoc.classes import Result, ResultReturn
+from aoc.classes import AoCResult, AoCReturn
 
 Circuit = namedtuple("circuit", "op var1 var2 shift num1 num2")
 Circuit.__new__.__defaults__ = (None,) * len(Circuit._fields)
@@ -135,7 +135,7 @@ def main(puzzle_input: List[str]):
     original_v = copy.deepcopy(values)
     circuits, values = solve_circuits(circuits, values)
 
-    result_1 = Result(values["a"], "After first round")
+    result_1 = AoCResult(values["a"], "After first round")
 
     val_a = values["a"]
     circuits = original_c
@@ -144,9 +144,9 @@ def main(puzzle_input: List[str]):
 
     circuits, values = solve_circuits(circuits, values)
 
-    result_2 = Result(values["a"], "After second round")
+    result_2 = AoCResult(values["a"], "After second round")
 
-    return ResultReturn((result_1, result_2))
+    return AoCReturn((result_1, result_2))
 
 
 if __name__ == "__main__":

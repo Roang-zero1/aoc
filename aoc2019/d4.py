@@ -1,4 +1,4 @@
-from aoc.classes import Result, ResultReturn
+from aoc.classes import AoCResult, AoCReturn
 from typing import List
 
 
@@ -27,7 +27,7 @@ def test_password(password: int, strict_double: bool = False):
     return False
 
 
-def main(puzzle_input: List[str]) -> ResultReturn:
+def main(puzzle_input: List[str]) -> AoCReturn:
     input_values = list(map(int, puzzle_input[0].split("-")))
     sum_valid = 0
     sum_valid_strict = 0
@@ -36,10 +36,10 @@ def main(puzzle_input: List[str]) -> ResultReturn:
             sum_valid += 1
             if test_password(password, True):
                 sum_valid_strict += 1
-    return ResultReturn(
+    return AoCReturn(
         (
-            Result(sum_valid, "Sum valid passwords"),
-            Result(sum_valid_strict, "Sum of valid passwords with additional checks"),
+            AoCResult(sum_valid, "Sum valid passwords"),
+            AoCResult(sum_valid_strict, "Sum of valid passwords with additional checks"),
         )
     )
 

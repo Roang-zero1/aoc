@@ -3,11 +3,11 @@ from typing import Any, Tuple
 
 
 @dataclass
-class Result:
+class AoCResult:
     result: Any
     comment: str
 
 
 @dataclass
-class ResultReturn:
-    results: Tuple[Result, Result]
+class AoCReturn:
+    results: Tuple[AoCResult, AoCResult]

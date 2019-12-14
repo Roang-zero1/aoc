@@ -1,7 +1,7 @@
 #!python
 from typing import Dict, List, Set, Tuple
 
-from aoc.classes import Result, ResultReturn
+from aoc.classes import AoCResult, AoCReturn
 
 DIRECTION_MAP = {"U": (0, 1), "D": (0, -1), "R": (1, 0), "L": (-1, 0)}
 
@@ -60,16 +60,16 @@ class WireTracer:
         return min(timings)
 
 
-def main(puzzle_input: List[str]) -> ResultReturn:
+def main(puzzle_input: List[str]) -> AoCReturn:
     wires = []
     for line in puzzle_input:
         values = line.split(",")
         wires.append(values)
     tracer = WireTracer(wires[0], wires[1])
-    return ResultReturn(
+    return AoCReturn(
         (
-            Result(tracer.find_distance(), "Wire distance"),
-            Result(tracer.find_timing(), "Best timing"),
+            AoCResult(tracer.find_distance(), "Wire distance"),
+            AoCResult(tracer.find_timing(), "Best timing"),
         )
     )
 
