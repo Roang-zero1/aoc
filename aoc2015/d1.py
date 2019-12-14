@@ -1,13 +1,23 @@
-floor = 0
-basement = False
-with open("d1.txt") as input_file:
-    for line in input_file:
+from typing import List
+
+from aoc.classes import Result, ResultReturn
+
+
+def main(puzzle_input: List[str]):
+    floor = 0
+    basement = False
+    for line in puzzle_input:
         for i, char in enumerate(line):
-            if char == '(':
+            if char == "(":
                 floor += 1
-            elif char == ')':
+            elif char == ")":
                 floor -= 1
             if floor == -1 and not basement:
-                print(f'Basement @{i + 1}')
+                result_2 = Result(i + 1, "Basement entered")
                 basement = True
-print(f'Floor: {floor}')
+    result_1 = Result(floor, "Final floor")
+    return ResultReturn((result_1, result_2))
+
+
+if __name__ == "__main__":
+    raise Exception("Please use the run script")
