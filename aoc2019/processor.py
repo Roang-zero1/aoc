@@ -86,6 +86,7 @@ class Processor:
             2: self.mul,
             3: self.input,
             4: self.output,
+            5: self.jump_if_true,
             99: self.finish,
         }
         retval = None
@@ -176,6 +177,19 @@ class Processor:
             raise ValueError("Invalid value for addition given")
         self.save(self.parameters[0] * self.parameters[1], 3)
         self.instruction = Instruction(self.instruction.cursor + 4)
+
+    def jump_if_true(self) -> None:
+        self.read_parameters(2)
+        if self.parameters[0] != 0:
+            address = self.parameters[1]
+            if address:
+                logger.debug("Jump to address %s", address)
+                self.instruction = Instruction(address)
+            else:
+                raise ValueError("Invalid jump address found")
+        else:
+            logger.debug("Do not jump")
+            self.instruction = Instruction(self.instruction.cursor + 3)
 
     def finish(self):
         logger.debug("Finishing execution")
