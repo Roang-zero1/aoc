@@ -88,6 +88,7 @@ class Processor:
             4: self.output,
             5: self.jump_if_true,
             6: self.jump_if_false,
+            7: self.less_than,
             99: self.finish,
         }
         retval = None
@@ -204,6 +205,20 @@ class Processor:
         else:
             logger.debug("Do not jump")
             self.instruction = Instruction(self.instruction.cursor + 3)
+
+    def less_than(self) -> None:
+        self.read_parameters(2)
+        parameter_1 = self.parameters[0]
+        parameter_2 = self.parameters[1]
+        logger.debug("Check less than for %s < %s", parameter_1, parameter_2)
+        if parameter_1 and parameter_2:
+            if parameter_1 < parameter_2:
+                self.save(1, 3)
+            else:
+                self.save(0, 3)
+            self.instruction = Instruction(self.instruction.cursor + 4)
+        else:
+            raise ValueError("Invalid parameters found")
 
     def finish(self):
         logger.debug("Finishing execution")
