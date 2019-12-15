@@ -73,7 +73,7 @@ class Test2019ProcessorV2(unittest.TestCase):
         )
 
 
-class Test2019ProcessorV3(unittest.TestCase):
+class Test2019ProcessorV3(LoggedTestCase):
     def test_equals_position(self):
         code = [3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8]
         processor = Processor(code)

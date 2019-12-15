@@ -2,6 +2,10 @@
 *.txt
 input/
 
+# Ignore logger configuration
+
+*_logger.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
