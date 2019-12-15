@@ -30,9 +30,21 @@ def main(input: List[str]):
     if diagnostic_code == -1:
         raise Exception("Failed to obtain diagnostic code")
 
-    result_1 = AoCResult(diagnostic_code, "diagnostic code")
+    result_1 = AoCResult(diagnostic_code, "diagnostic code - air conditioner unit")
 
-    return AoCReturn((result_1, AoCResult(None, "NYI")))
+    processor.reset()
+    result = processor.run()
+    if result[0] != ResultMode.INPUT:
+        raise Exception("Unexpected result, verify input")
+    result = processor.continue_operation(5)
+    diagnostic_code = result[1]
+    processor.continue_operation()
+
+    result_2 = AoCResult(
+        diagnostic_code, "diagnostic code - thermal radiator controller"
+    )
+
+    return AoCReturn((result_1, result_2))
 
 
 if __name__ == "__main__":
