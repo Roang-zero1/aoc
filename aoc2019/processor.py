@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum
-from typing import Dict, List, Union
+from typing import Any, Dict, List, Tuple, Union
 
 PARAMETER_COUNT = 2
 
@@ -54,28 +54,40 @@ class Processor:
         self.parameters = dict.fromkeys(self.parameters, None)
         for parameter in range(parameter_count):
             self.parameters[parameter] = (
-                self.code[self.code[self.instruction.cursor + 1 + parameter]]
+                self.read(1 + parameter)
                 if self.parameter_modes[parameter] == ParameterMode.POSITION
                 else self.code[self.instruction.cursor + 1 + parameter]
             )
 
-    def run(self) -> List[int]:
+    def run(self) -> Tuple[ResultMode, Any]:
         self.instruction = Instruction(0)
         return self.continue_operation()
 
-    def continue_operation(self) -> List[int]:
+    def continue_operation(
+        self, input: Union[int, None] = None
+    ) -> Tuple[ResultMode, Any]:
         function_map = {
             1: self.add,
             2: self.mul,
-            3: self.save,
-            4: self.read,
+            3: self.input,
+            4: self.output,
             99: self.finish,
         }
+        retval = None
+
+        if input is not None:
+            self.input(input)
+        else:
+            self.instruction = Instruction(self.instruction.cursor)
+
         while self.instruction.result == ResultMode.CONTINUE:
             self.parse_opcode()
-            function_map[self.instruction.op_code]()
+            retval = function_map[self.instruction.op_code]()
 
-        return self.code
+        return (
+            self.instruction.result,
+            self.code if self.instruction.result == ResultMode.FINISHED else retval,
+        )
 
     def prime(self, noun: int, verb: int) -> "Processor":
         self.reset()
@@ -86,24 +98,47 @@ class Processor:
     def reset(self) -> None:
         self.code = self.original_state.copy()
 
+    def save(self, value: int, offset: int = 1):
+        self.code[self.code[self.instruction.cursor + offset]] = value
+
+    def read(self, offset: int = 1) -> int:
+        if self.instruction.cursor + offset > len(self.code):
+            raise IndexError
+        value = self.code[self.code[self.instruction.cursor + offset]]
+        return value
+
+    def input(self, value: Union[int, None] = None) -> None:
+        if value is None:
+            self.instruction = Instruction(
+                self.instruction.cursor, result=ResultMode.INPUT
+            )
+        else:
+            self.save(value)
+            self.instruction = Instruction(self.instruction.cursor + 2)
+
+    def output(self) -> int:
+        self.read_parameters(1)
+        value = self.parameters[0]
+        if value is None:
+            raise ValueError("Invalid value read")
+        self.instruction = Instruction(
+            self.instruction.cursor + 2, result=ResultMode.OUTPUT
+        )
+        return value
+
     def add(self) -> None:
         self.read_parameters(2)
         if self.parameters[0] is None or self.parameters[1] is None:
             raise ValueError("Invalid value for addition given")
-        self.code[self.code[self.instruction.cursor + 3]] = (
-            self.parameters[0] + self.parameters[1]
-        )
+        self.save(self.parameters[0] + self.parameters[1], 3)
         self.instruction = Instruction(self.instruction.cursor + 4)
 
     def mul(self) -> None:
         self.read_parameters(2)
         if self.parameters[0] is None or self.parameters[1] is None:
             raise ValueError("Invalid value for addition given")
-        self.code[self.code[self.instruction.cursor + 3]] = (
-            self.parameters[0] * self.parameters[1]
-        )
+        self.save(self.parameters[0] * self.parameters[1], 3)
         self.instruction = Instruction(self.instruction.cursor + 4)
 
     def finish(self):
         self.instruction = Instruction(0, result=ResultMode.FINISHED)
-
