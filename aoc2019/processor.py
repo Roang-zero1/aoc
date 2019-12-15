@@ -87,6 +87,7 @@ class Processor:
             3: self.input,
             4: self.output,
             5: self.jump_if_true,
+            6: self.jump_if_false,
             99: self.finish,
         }
         retval = None
@@ -181,6 +182,19 @@ class Processor:
     def jump_if_true(self) -> None:
         self.read_parameters(2)
         if self.parameters[0] != 0:
+            address = self.parameters[1]
+            if address:
+                logger.debug("Jump to address %s", address)
+                self.instruction = Instruction(address)
+            else:
+                raise ValueError("Invalid jump address found")
+        else:
+            logger.debug("Do not jump")
+            self.instruction = Instruction(self.instruction.cursor + 3)
+
+    def jump_if_false(self) -> None:
+        self.read_parameters(2)
+        if self.parameters[0] == 0:
             address = self.parameters[1]
             if address:
                 logger.debug("Jump to address %s", address)
